@@ -7,11 +7,11 @@ class Database {
   private tenants: Tenant[] = []
   private sessions: Map<string, { userId: string; tenantId: string; expires: Date }> = new Map()
 
-  constructor() {
-    this.initializeSampleData()
-  }
+  private initialized = false
 
   private async initializeSampleData() {
+    if (this.initialized) return
+    this.initialized = true
     // Initialize sample tenants
     const josTenant = await this.createTenant({
       name: 'ECWA Jos DCC',
@@ -61,8 +61,15 @@ class Database {
     await this.updateUser(treasurerUser.id, { passwordHash: hashPassword('treasurer123') })
   }
 
+  private async ensureInitialized() {
+    if (!this.initialized) {
+      await this.initializeSampleData()
+    }
+  }
+
   // User management
   async createUser(user: Omit<User, 'id' | 'createdAt'>): Promise<User> {
+    await this.ensureInitialized()
     const newUser: User = {
       ...user,
       id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -73,10 +80,12 @@ class Database {
   }
 
   async getUserByEmail(email: string, tenantId: string): Promise<User | null> {
+    await this.ensureInitialized()
     return this.users.find(u => u.email === email && u.tenantId === tenantId) || null
   }
 
   async getUserById(id: string): Promise<User | null> {
+    await this.ensureInitialized()
     return this.users.find(u => u.id === id) || null
   }
 
@@ -101,10 +110,12 @@ class Database {
   }
 
   async getTenantBySlug(slug: string): Promise<Tenant | null> {
+    await this.ensureInitialized()
     return this.tenants.find(t => t.slug === slug) || null
   }
 
   async getTenantById(id: string): Promise<Tenant | null> {
+    await this.ensureInitialized()
     return this.tenants.find(t => t.id === id) || null
   }
 
