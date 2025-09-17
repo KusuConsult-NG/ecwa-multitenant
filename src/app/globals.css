@@ -2,28 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ECWA Color Scheme */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --ecwa-primary: #0ea5e9;
+  --ecwa-secondary: #1e40af;
+  --ecwa-accent: #3b82f6;
+  --ecwa-success: #10b981;
+  --ecwa-warning: #f59e0b;
+  --ecwa-danger: #ef4444;
+  --ecwa-light: #f8fafc;
+  --ecwa-dark: #1e293b;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
 }
 
 /* ECWA Custom Styles */

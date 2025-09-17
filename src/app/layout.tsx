@@ -13,8 +13,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        {children}
+      <body className="bg-gray-50">
+        <div className="min-h-screen">
+          {children}
+        </div>
       </body>
     </html>
   )

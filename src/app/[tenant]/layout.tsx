@@ -24,12 +24,19 @@ export default async function TenantLayout({
   return (
     <TenantProvider tenant={tenant}>
       <div className="min-h-screen bg-gray-50">
+        {/* Top Navigation */}
         <TenantTopbar />
-        <div className="layout">
+        
+        <div className="flex">
+          {/* Sidebar */}
           <TenantSidebar />
-          <main className="content">
-            {children}
-          </main>
+          
+          {/* Main Content */}
+          <div className="flex-1">
+            <main className="p-6">
+              {children}
+            </main>
+          </div>
         </div>
       </div>
     </TenantProvider>
