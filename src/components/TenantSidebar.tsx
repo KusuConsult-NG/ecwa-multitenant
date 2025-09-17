@@ -10,11 +10,15 @@ export default function TenantSidebar() {
 
   const navigation = [
     { name: 'Dashboard', href: `/${tenant.slug}`, icon: '🏠' },
+    { name: 'Leaders', href: `/${tenant.slug}/leaders`, icon: '👥' },
+    { name: 'Requisitions', href: `/${tenant.slug}/requisitions`, icon: '📋' },
+    { name: 'Approvals', href: `/${tenant.slug}/approvals`, icon: '✅' },
     { name: 'Financials', href: `/${tenant.slug}/financials`, icon: '💰' },
     { name: 'Members', href: `/${tenant.slug}/members`, icon: '👥' },
     { name: 'Agencies', href: `/${tenant.slug}/agencies`, icon: '🏢' },
     { name: 'Staff', href: `/${tenant.slug}/staff`, icon: '👨‍💼' },
     { name: 'Expenditures', href: `/${tenant.slug}/expenditures`, icon: '🧾' },
+    { name: 'Import Data', href: `/${tenant.slug}/import-data`, icon: '📥' },
     { name: 'Reports', href: `/${tenant.slug}/reports`, icon: '📊' },
     { name: 'Settings', href: `/${tenant.slug}/settings`, icon: '⚙️' },
   ]

@@ -242,6 +242,45 @@ class Database {
     await this.ensureInitialized()
     return this.tenants.filter(t => t.organization?.type === type)
   }
+
+  // Leaders data
+  private leaders: Map<string, any[]> = new Map()
+  
+  async getLeaders(tenantId: string) {
+    return this.leaders.get(tenantId) || []
+  }
+
+  async createLeader(data: any) {
+    const existing = this.leaders.get(data.tenantId) || []
+    const newLeader = { ...data, id: `leader_${Date.now()}` }
+    existing.push(newLeader)
+    this.leaders.set(data.tenantId, existing)
+    return newLeader
+  }
+
+  async updateLeader(id: string, updates: any) {
+    for (const [tenantId, leaders] of this.leaders.entries()) {
+      const leaderIndex = leaders.findIndex(l => l.id === id)
+      if (leaderIndex !== -1) {
+        leaders[leaderIndex] = { ...leaders[leaderIndex], ...updates }
+        this.leaders.set(tenantId, leaders)
+        return leaders[leaderIndex]
+      }
+    }
+    return null
+  }
+
+  async deleteLeader(id: string) {
+    for (const [tenantId, leaders] of this.leaders.entries()) {
+      const leaderIndex = leaders.findIndex(l => l.id === id)
+      if (leaderIndex !== -1) {
+        leaders.splice(leaderIndex, 1)
+        this.leaders.set(tenantId, leaders)
+        return true
+      }
+    }
+    return false
+  }
 }
 
 export const db = new Database()
