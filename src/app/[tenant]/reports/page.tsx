@@ -184,7 +184,7 @@ export default function ReportsPage() {
               {Object.entries(memberReport.roleDistribution).map(([role, count]) => (
                 <div key={role} className="flex justify-between items-center">
                   <span className="text-sm font-medium text-gray-700">{role}</span>
-                  <span className="text-sm text-gray-500">{count} members</span>
+                  <span className="text-sm text-gray-500">{count as number} members</span>
                 </div>
               ))}
             </div>
@@ -218,7 +218,7 @@ export default function ReportsPage() {
               {Object.entries(expenditureReport.categoryDistribution).map(([category, count]) => (
                 <div key={category} className="flex justify-between items-center">
                   <span className="text-sm font-medium text-gray-700">{category}</span>
-                  <span className="text-sm text-gray-500">{count} requests</span>
+                  <span className="text-sm text-gray-500">{count as number} requests</span>
                 </div>
               ))}
             </div>

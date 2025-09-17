@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, ReactNode } from 'react'
-import { Tenant, TenantContext } from '@/types/tenant'
+import { Tenant, type TenantContext } from '@/types/tenant'
 
 const TenantContext = createContext<TenantContext | null>(null)
 

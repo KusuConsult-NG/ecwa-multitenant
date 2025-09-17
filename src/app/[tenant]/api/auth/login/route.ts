@@ -28,7 +28,7 @@ export async function POST(
 
     // Get user
     const user = await db.getUserByEmail(email, tenant.id)
-    if (!user || !verifyPassword(password, user.passwordHash)) {
+    if (!user || !user.passwordHash || !verifyPassword(password, user.passwordHash)) {
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }

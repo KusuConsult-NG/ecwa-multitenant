@@ -24,7 +24,7 @@ export async function signToken(payload: Omit<AuthToken, 'iat' | 'exp'>) {
 
 export async function verifyToken(token: string) {
   const { payload } = await jwtVerify(token, KEY)
-  return payload as AuthToken
+  return payload as unknown as AuthToken
 }
 
 export function hashPassword(password: string): string {
