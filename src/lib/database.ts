@@ -201,6 +201,47 @@ class Database {
     existing.push({ ...data, id: `staff_${Date.now()}`, createdAt: new Date().toISOString() })
     this.staff.set(tenantId, existing)
   }
+
+  // Requisitions data
+  private requisitions: Map<string, any[]> = new Map()
+  
+  async getRequisitions(tenantId: string) {
+    return this.requisitions.get(tenantId) || []
+  }
+
+  async createRequisition(data: any) {
+    const existing = this.requisitions.get(data.tenantId) || []
+    const newReq = { ...data, id: `req_${Date.now()}` }
+    existing.push(newReq)
+    this.requisitions.set(data.tenantId, existing)
+    return newReq
+  }
+
+  async getRequisition(id: string) {
+    for (const [tenantId, reqs] of this.requisitions.entries()) {
+      const req = reqs.find(r => r.id === id)
+      if (req) return req
+    }
+    return null
+  }
+
+  async updateRequisition(id: string, updates: any) {
+    for (const [tenantId, reqs] of this.requisitions.entries()) {
+      const reqIndex = reqs.findIndex(r => r.id === id)
+      if (reqIndex !== -1) {
+        reqs[reqIndex] = { ...reqs[reqIndex], ...updates }
+        this.requisitions.set(tenantId, reqs)
+        return reqs[reqIndex]
+      }
+    }
+    return null
+  }
+
+  // Organization management
+  async getTenantsByType(type: string) {
+    await this.ensureInitialized()
+    return this.tenants.filter(t => t.organization?.type === type)
+  }
 }
 
 export const db = new Database()
