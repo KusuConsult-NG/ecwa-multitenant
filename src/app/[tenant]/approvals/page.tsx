@@ -174,7 +174,7 @@ export default function ApprovalsPage() {
                         {req.approvalChain.map((role, index) => (
                           <div key={role} className="flex items-center">
                             <span className={`text-xs px-2 py-1 rounded-full ${
-                              index < req.approvalHistory?.length ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'
+                              index < (req.approvalHistory?.length || 0) ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'
                             }`}>
                               {role}
                             </span>

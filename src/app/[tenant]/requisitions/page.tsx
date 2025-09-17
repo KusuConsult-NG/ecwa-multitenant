@@ -241,12 +241,12 @@ export default function RequisitionsPage() {
       <div className="card mb-6">
         <h3 className="text-lg font-semibold mb-3">Approval Flow for {tenant.name}</h3>
         <div className="flex items-center space-x-4 text-sm">
-          {getApprovalFlow(tenant.organization?.level || 'LC').map((role, index) => (
+          {getApprovalFlow(tenant.organization?.type || 'LC').map((role, index) => (
             <div key={role} className="flex items-center">
               <div className="bg-ecwa-100 text-ecwa-800 px-3 py-1 rounded-full">
                 {role}
               </div>
-              {index < getApprovalFlow(tenant.organization?.level || 'LC').length - 1 && (
+              {index < getApprovalFlow(tenant.organization?.type || 'LC').length - 1 && (
                 <span className="text-gray-400 mx-2">→</span>
               )}
             </div>

@@ -44,8 +44,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { title, description, amount, category, requester, requesterEmail, status } = body
 
-    // Determine approval chain based on organization level
-    const approvalChain = getApprovalChain(tenant.organization?.level || 'LC')
+    // Determine approval chain based on organization type
+    const approvalChain = getApprovalChain(tenant.organization?.type || 'LC')
     
     const requisition = await db.createRequisition({
       tenantId: tenant.id,

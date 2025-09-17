@@ -31,7 +31,7 @@ export default function LeadersPage() {
     startDate: new Date().toISOString().split('T')[0]
   })
 
-  const roles = getRolesForLevel(tenant.organization?.level || 'LC')
+  const roles = getRolesForLevel(tenant.organization?.type || 'LC')
 
   useEffect(() => {
     loadLeaders()

@@ -218,7 +218,7 @@ class Database {
   }
 
   async getRequisition(id: string) {
-    for (const [tenantId, reqs] of this.requisitions.entries()) {
+    for (const [tenantId, reqs] of Array.from(this.requisitions.entries())) {
       const req = reqs.find(r => r.id === id)
       if (req) return req
     }
@@ -226,7 +226,7 @@ class Database {
   }
 
   async updateRequisition(id: string, updates: any) {
-    for (const [tenantId, reqs] of this.requisitions.entries()) {
+    for (const [tenantId, reqs] of Array.from(this.requisitions.entries())) {
       const reqIndex = reqs.findIndex(r => r.id === id)
       if (reqIndex !== -1) {
         reqs[reqIndex] = { ...reqs[reqIndex], ...updates }
@@ -259,7 +259,7 @@ class Database {
   }
 
   async updateLeader(id: string, updates: any) {
-    for (const [tenantId, leaders] of this.leaders.entries()) {
+    for (const [tenantId, leaders] of Array.from(this.leaders.entries())) {
       const leaderIndex = leaders.findIndex(l => l.id === id)
       if (leaderIndex !== -1) {
         leaders[leaderIndex] = { ...leaders[leaderIndex], ...updates }
@@ -271,7 +271,7 @@ class Database {
   }
 
   async deleteLeader(id: string) {
-    for (const [tenantId, leaders] of this.leaders.entries()) {
+    for (const [tenantId, leaders] of Array.from(this.leaders.entries())) {
       const leaderIndex = leaders.findIndex(l => l.id === id)
       if (leaderIndex !== -1) {
         leaders.splice(leaderIndex, 1)

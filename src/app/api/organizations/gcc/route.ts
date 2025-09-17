@@ -17,12 +17,7 @@ export async function POST(request: NextRequest) {
       organization: {
         type: 'GCC' as const,
         name: orgDetails.name,
-        level: 'GCC',
-        parentId: null,
-        location: orgDetails.location,
-        address: orgDetails.address,
-        state: orgDetails.state,
-        country: orgDetails.country
+        parentId: undefined
       }
     })
 

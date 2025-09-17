@@ -30,12 +30,7 @@ export async function POST(request: NextRequest) {
       organization: {
         type: 'LCC' as const,
         name: orgDetails.name,
-        level: 'LCC',
-        parentId: orgDetails.parentDcc,
-        location: orgDetails.location,
-        address: orgDetails.address,
-        state: orgDetails.state,
-        country: orgDetails.country
+        parentId: orgDetails.parentDcc
       }
     })
 

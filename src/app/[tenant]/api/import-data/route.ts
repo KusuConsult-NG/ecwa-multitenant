@@ -18,7 +18,11 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { selectedData, ecwaData } = body
 
-    const importedData = {
+    const importedData: {
+      dccs: any[]
+      lccs: any[]
+      lcs: any[]
+    } = {
       dccs: [],
       lccs: [],
       lcs: []
@@ -26,7 +30,7 @@ export async function POST(request: NextRequest) {
 
     // Import selected DCCs
     for (const dccId of selectedData.dccs) {
-      const dccData = ecwaData.dccs.find(dcc => dcc.id === dccId)
+      const dccData = ecwaData.dccs.find((dcc: any) => dcc.id === dccId)
       if (dccData) {
         const importedDCC = await db.createTenant({
           name: dccData.name,
@@ -39,10 +43,7 @@ export async function POST(request: NextRequest) {
           organization: {
             type: 'DCC' as const,
             name: dccData.name,
-            level: 'DCC',
-            parentId: null,
-            location: dccData.location,
-            state: dccData.state
+            parentId: undefined
           }
         })
         importedData.dccs.push(importedDCC)
@@ -51,7 +52,7 @@ export async function POST(request: NextRequest) {
 
     // Import selected LCCs
     for (const lccId of selectedData.lccs) {
-      const lccData = ecwaData.lccs.find(lcc => lcc.id === lccId)
+      const lccData = ecwaData.lccs.find((lcc: any) => lcc.id === lccId)
       if (lccData) {
         // Find parent DCC
         const parentDCC = importedData.dccs.find(dcc => dcc.organization?.name === lccData.parentDcc) ||
@@ -68,10 +69,7 @@ export async function POST(request: NextRequest) {
           organization: {
             type: 'LCC' as const,
             name: lccData.name,
-            level: 'LCC',
-            parentId: parentDCC?.id,
-            location: lccData.location,
-            state: lccData.state
+            parentId: parentDCC?.id
           }
         })
         importedData.lccs.push(importedLCC)
@@ -80,7 +78,7 @@ export async function POST(request: NextRequest) {
 
     // Import selected LCs
     for (const lcId of selectedData.lcs) {
-      const lcData = ecwaData.lcs.find(lc => lc.id === lcId)
+      const lcData = ecwaData.lcs.find((lc: any) => lc.id === lcId)
       if (lcData) {
         // Find parent LCC
         const parentLCC = importedData.lccs.find(lcc => lcc.organization?.name === lcData.parentLcc) ||
@@ -97,10 +95,7 @@ export async function POST(request: NextRequest) {
           organization: {
             type: 'LC' as const,
             name: lcData.name,
-            level: 'LC',
-            parentId: parentLCC?.id,
-            location: lcData.location,
-            state: lcData.state
+            parentId: parentLCC?.id
           }
         })
         importedData.lcs.push(importedLC)
